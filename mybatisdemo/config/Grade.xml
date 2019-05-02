@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Grade">
+
+  <resultMap type="entity.Grade" id="GradeResult">
+    <id column="gid" jdbcType="INTEGER" property="gid"/>
+    <result column="gname" jdbcType="VARCHAR" property="gname"/>
+    
+    <!-- 一对多关系 -->
+    <collection property="stus" resultMap="Student.StudentResult"></collection>
+  </resultMap>
+     
+    <!-- 查询所有信息 -->
+    <select id="selectAllInfo" resultMap="GradeResult">
+        <!-- select sid,sname,sex,g.gid,gname from Student s,Grade g where s.gid=g.gid -->
+        select sid,sname,sex,g.gid,gname from Student s left join Grade g on s.gid=g.gid
+    </select>
+</mapper>
